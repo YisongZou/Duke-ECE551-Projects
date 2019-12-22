@@ -1,0 +1,88 @@
+Grading at 10/31/2019:02:43:16.012299
+For commit ID dba59a22447d459dfdb14c023915b0539968c691
+Grading at Wed Oct 30 22:42:57 EDT 2019
+**Testing correct implementation **
+-----------------------------------
+  - Valgrind was clean (no errors, no memory leaks)
+
+**Testing broken implementation 10**
+-----------------------------------
+
+**Testing broken implementation 11**
+-----------------------------------
+
+**Testing broken implementation 12**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 13**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 14**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 15**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 16**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 17**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 18**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 19**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 1**
+-----------------------------------
+
+**Testing broken implementation 20**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 21**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 2**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 3**
+-----------------------------------
+
+**Testing broken implementation 4**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 5**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 6**
+-----------------------------------
+  - Valgrind reported errors
+
+**Testing broken implementation 7**
+-----------------------------------
+
+**Testing broken implementation 8**
+-----------------------------------
+
+**Testing broken implementation 9**
+-----------------------------------
+  - Valgrind reported errors
+
+Your tests identified the problems with all broken programs
+
+Overall Grade: PASSED

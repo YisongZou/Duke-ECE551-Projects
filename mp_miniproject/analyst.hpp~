@@ -1,0 +1,18 @@
+#include <cstdlib>
+#include <string>
+class path_analyst {
+ public:
+  //default constructor
+  path_analyst() {}
+  //Number is the number of command line arguments
+  void directory_search(const char * path, char ** input);
+  //Convert a string to char* while remove unneeded contents
+  void string_tocharstar(std::string str, char *& ans);
+  //parse command line arguments
+  void Parser(std::string & str,
+              int & double_quotes,
+              int & count,
+              char **& newargv,
+              int & i,
+              int & num_commandlineargument);
+};

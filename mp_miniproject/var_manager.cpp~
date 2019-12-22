@@ -1,0 +1,22 @@
+#include "var_manager.hpp"
+
+#include <cstdlib>
+#include <string>
+#include <unordered_map>
+
+// set the variable var to the string on the rest of the command line
+void var_manager::set(std::string var, std::string value) {
+  var_map[var] = value;
+}
+
+//put the current value of var into the environment for other programs.
+//void var_manager::export() {
+//}
+
+//Reverses the string held in var.
+void var_manager::rev(std::string var) {
+  std::string copy = var_map[var];
+  for (unsigned long i = 0; i < var_map[var].size(); i++) {
+    var_map[var][i] = copy[copy.size() - 1 - i];
+  }
+}

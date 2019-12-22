@@ -1,0 +1,77 @@
+==112889== Memcheck, a memory error detector
+==112889== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==112889== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==112889== Command: ./test-lls
+==112889== Parent PID: 112888
+==112889== 
+==112889== Invalid read of size 8
+==112889==    at 0x1098BC: IntList::~IntList() (il9.cpp:139)
+==112889==    by 0x10904B: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Address 0x5b7dd48 is 8 bytes inside a block of size 24 free'd
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x10903F: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Block was alloc'd at
+==112889==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x109183: IntList::addFront(int const&) (il9.cpp:18)
+==112889==    by 0x108E6A: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889== 
+==112889== Invalid free() / delete / delete[] / realloc()
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x10904B: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Address 0x5b7dd40 is 0 bytes inside a block of size 24 free'd
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x10903F: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Block was alloc'd at
+==112889==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x109183: IntList::addFront(int const&) (il9.cpp:18)
+==112889==    by 0x108E6A: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889== 
+==112889== Invalid read of size 8
+==112889==    at 0x1098BC: IntList::~IntList() (il9.cpp:139)
+==112889==    by 0x109072: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Address 0x5b7dd48 is 8 bytes inside a block of size 24 free'd
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x10903F: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Block was alloc'd at
+==112889==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x109183: IntList::addFront(int const&) (il9.cpp:18)
+==112889==    by 0x108E6A: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889== 
+==112889== Invalid free() / delete / delete[] / realloc()
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x109072: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Address 0x5b7dd40 is 0 bytes inside a block of size 24 free'd
+==112889==    at 0x4C3123B: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x1098CF: IntList::~IntList() (il9.cpp:140)
+==112889==    by 0x10903F: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==  Block was alloc'd at
+==112889==    at 0x4C3017F: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==112889==    by 0x109183: IntList::addFront(int const&) (il9.cpp:18)
+==112889==    by 0x108E6A: testList() (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889==    by 0x10910F: main (in /home/yz558/ece551/091_tests_lls/test-lls)
+==112889== 
+==112889== 
+==112889== HEAP SUMMARY:
+==112889==     in use at exit: 0 bytes in 0 blocks
+==112889==   total heap usage: 5 allocs, 7 frees, 72,800 bytes allocated
+==112889== 
+==112889== All heap blocks were freed -- no leaks are possible
+==112889== 
+==112889== For counts of detected and suppressed errors, rerun with: -v
+==112889== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)

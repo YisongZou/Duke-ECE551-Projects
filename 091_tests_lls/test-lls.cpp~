@@ -1,0 +1,20 @@
+#include <cstdlib>
+
+#include "il.h"
+void testList(void) {
+  IntList t1;
+  IntList t2;
+  t1.addFront(1);
+  t1.addBack(2);
+  t2.addFront(3);
+  t1.remove(1);
+  t1 = t2;
+  IntList t3(t1);
+  t1.getSize();
+  t1.find(1);
+}
+
+int main(void) {
+  testList();
+  return EXIT_SUCCESS;
+}

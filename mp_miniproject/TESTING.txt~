@@ -1,0 +1,34 @@
+
+step1 ls consequence need to be fixed
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Step1
+
+(1)RUN ./ffosh. < ./tests/step1/step1test.txt
+You will see that it prints:
+
+ffosh$Makefile  README  TESTING.txt  TESTING.txt~  commandShell.txt  ffosh.  ffosh.cpp  numerics.txt	tests
+Program was successful
+ffosh$Program failed with code 2
+ffosh$Terminated by signal 3
+ffosh$
+
+which is correct because when we redirect the contents in step1test.txt to cin, ffosh. will read the contents
+from cin. The first program designated by step1test.txt is /bin/ls, which will print the documents in current
+directory. The second program designated by step1test.txt will exit with exit(2) and the third will terminate
+with raise(3). Consequently, the outputs are correct.
+
+(2) Run ./ffosh. sarfaerfwqerqxc
+    You will see that it prints:
+
+Wrong number of command line arguments
+ Usage: ./ffosh.
+ 
+which is correct because we will only provide one command line argunmet, other inputs will be input from cin.
+
+(3)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+(1) Run ./myprogram < testcases/input1.txt
+    You will see that it prints xyz, which is correct because [reasons]
+(2) Run ./myprogram < testcases/input2.txt
+    You will see that it prints xyz, which is correct because [reasons]

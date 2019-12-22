@@ -1,0 +1,3 @@
+#include <cstdlib>
+
+int binarySearchForZero(Function<int, int> * f, int low, int high) {

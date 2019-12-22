@@ -1,0 +1,189 @@
+#include "analyst.hpp"
+
+#include <string.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <sstream>
+
+#include "string"
+//The mothods for class path_analyst
+
+//search directory
+void path_analyst::directory_search(const char * path, char ** input) {
+  //Use command_name to store the command name
+  char * command_name = new char[50];
+  strcpy(command_name, input[0]);
+  //str is used to store and divide the content of ECE551PATH
+  std::string str;
+  str = path;
+  int count = 0;
+
+  //temp is used to convert string to char*
+  char * temp = new char[100];
+
+  char ** newenviron = new char *[100];
+  std::string sb = "sb=1";
+  newenviron[0] = new char[100];
+  string_tocharstar(sb, newenviron[0]);
+
+  //Iterate over ECE551PATH
+  for (unsigned long i = 0; i < str.size(); i++) {
+    if (str[i] == ':') {
+      // char * newenviron[] = {NULL};
+
+      //Use buffer to convert string to char*
+      std::stringstream buffer;
+      buffer << str.substr(i - count, count);
+      buffer << "/";
+      buffer << command_name;
+      buffer >> temp;
+      strcpy(input[0], temp);
+
+      execve(input[0], input, newenviron);
+      count = 0;
+    }
+    //The last path in ECE551PATH
+    else if (i == str.size() - 1) {
+      // char * newenviron[] = {NULL};
+
+      //Use buffer to convert string to char*
+      std::stringstream buffer;
+      buffer << str.substr(i - count, count + 1);
+      buffer << "/";
+      buffer << command_name;
+      buffer >> temp;
+      strcpy(input[0], temp);
+
+      execve(input[0], input, newenviron);
+      count = 0;
+    }
+    else {
+      count++;
+    }
+  }
+
+  // If the program is not found
+  std::cout << "Command " << command_name
+            << " not found\n"; /* execve() returns only on error */
+  delete[] command_name;
+  delete[] temp;
+  exit(EXIT_FAILURE);
+}
+
+//Store the contents of a string into a char*
+void path_analyst::string_tocharstar(std::string str, char *& ans) {
+  unsigned long i;
+  int j = 0;
+  for (i = 0; i < str.size(); i++) {
+    //support escaped quotation marks (\") and backslashes (\\)
+    if ((str[i] == '\\' && str[i + 1] == '"') || (str[i] == '\\' && str[i + 1] == '\\')) {
+      continue;
+    }
+    else {
+      ans[j] = str[i];
+      j++;
+    }
+  }
+  ans[j] = '\0';
+}
+
+//Parse command line arguments
+void path_analyst::Parser(std::string & str,
+                          int & double_quotes,
+                          int & count,
+                          char **& newargv,
+                          int & i,
+                          int & num_commandlineargument) {
+  for (unsigned long j = 0; j < str.size(); j++) {
+    // support escaped quotation marks (\") and backslashes (\\)
+    if (j >= 2) {
+      if ((str[j - 2] == '\\' && str[j - 1] == '\\' && str[j] == '"' &&
+           j != str.size() - 1) ||
+          (str[j - 1] != '\\' && str[j] == '"' && j != str.size() - 1)) {
+        double_quotes = !double_quotes;
+        count++;
+        continue;
+      }
+    }
+
+    if (j >= 1) {
+      if (str[j - 1] == '\\' && str[j] == '"' && j != str.size() - 1) {
+        count++;
+        continue;
+      }
+    }
+
+    //if there is a double quote before the space
+    if ((j >= 2 && str[j - 2] != '\\' && str[j - 1] == '"' && str[j] == ' ' &&
+         count != 0 && !double_quotes) ||
+        (j >= 3 && str[j - 3] == '\\' && str[j - 2] == '\\' && str[j - 1] == '"' &&
+         str[j] == ' ' && count != 0 && !double_quotes)) {
+      //Use temp to store the substring
+      std::string temp;
+      // std::cout << str.substr(j - count + 1, count - 2) << "\n";
+      temp = str.substr(j - count + 1, count - 2);
+      newargv[i] = new char[100];
+      string_tocharstar(temp, newargv[i]);
+      i++;
+      count = 0;
+    }
+
+    else if (str[j] == ' ' && count != 0 && !double_quotes) {
+      //Use temp to store the substring
+      std::string temp;
+      // std::cout << str.substr(j - count, count) << "\n";
+      temp = str.substr(j - count, count);
+      newargv[i] = new char[100];
+      string_tocharstar(temp, newargv[i]);
+      i++;
+      count = 0;
+    }
+
+    else if (str[j] == ' ' && count == 0 && !double_quotes) {
+      count = 0;
+    }
+
+    //the last command line argument end with "
+    else if (j == str.size() - 1 && str[j] == '"' &&
+             (str[j - 1] != '\\' || (str[j - 1] == '\\' && str[j - 2] == '\\'))) {
+      double_quotes = !double_quotes;
+      //Use temp to store the substring
+      std::string temp;
+      // std::cout << str.substr(j - count + 1, count - 1) << "\n";
+      temp = str.substr(j - count + 1, count - 1);
+      newargv[i] = new char[100];
+      string_tocharstar(temp, newargv[i]);
+      newargv[i + 1] = NULL;
+      i++;
+      //Use num_commandlineargument to count the largest arguments stored in newargv, use num_commandlineargument for delete
+      if (i > num_commandlineargument) {
+        num_commandlineargument = i;
+      }
+      count = 0;
+    }
+
+    //the last command line argument dose not end with "
+    else if (j == str.size() - 1) {
+      //Use temp to store the substring
+      std::string temp;
+      // std::cout << str.substr(j - count, count + 1) << "\n";
+      temp = str.substr(j - count, count + 1);
+      newargv[i] = new char[100];
+      string_tocharstar(temp, newargv[i]);
+      newargv[i + 1] = NULL;
+      i++;
+      //Use num_commandlineargument to count the largest arguments stored in newargv, use num_commandlineargument for delete
+      if (i > num_commandlineargument) {
+        num_commandlineargument = i;
+      }
+      count = 0;
+    }
+    else {
+      count++;
+    }
+  }
+}

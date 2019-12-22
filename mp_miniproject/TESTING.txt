@@ -1,0 +1,290 @@
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Step 1: Read a command name and run it
+
+(1)RUN ./ffosh. < ./tests/step1/step1test.txt
+You will see that it prints:
+
+ffosh:/home/yz558/ece551/mp_miniproject $Makefile     TESTING.txt~  analyst.hpp	 commandShell.txt  main.cpp~	 test3.cpp	  var_manager.cpp~  var_manager.o
+README	     analyst.cpp   analyst.hpp~  ffosh.		   main.o	 tests		  var_manager.hpp
+TESTING.txt  analyst.cpp~  analyst.o	 main.cpp	   numerics.txt  var_manager.cpp  var_manager.hpp~
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $Program failed with code 2
+ffosh:/home/yz558/ece551/mp_miniproject $Terminated by signal 3
+
+which is correct because when we redirect the contents in step1test.txt to cin, ffosh. will read the contents
+from cin. The first program designated by step1test.txt is /bin/ls, which will print the documents in current
+directory. The second program designated by step1test.txt will exit with exit(2) and the third will terminate
+with raise(3). Consequently, the outputs are correct.
+
+(2) Run ./ffosh. sarfaerfwqerqxc
+    You will see that it prints:
+
+Wrong number of command line arguments
+ Usage: ./ffosh.
+ 
+which is correct because we will only provide one command line argument, other inputs will be input from cin.
+
+(3)Run ./ffosh. 
+Then type asdfadsfgafga
+You will see that it prints:
+
+Command asdfadsfgafga not found
+Program failed with code 1
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the file doesn't exist.
+
+(4)Run ./ffosh.
+Then type exit or press ctrl+d
+The ffosh. shell will exit as expected.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Step 2: Improving commands
+
+(1)Run ./ffosh.
+Then type ls
+You will see that it prints:
+
+Makefile     TESTING.txt~  analyst.hpp	 commandShell.txt  main.cpp~	 test3.cpp	  var_manager.cpp~  var_manager.o
+README	     analyst.cpp   analyst.hpp~  ffosh.		   main.o	 tests		  var_manager.hpp
+TESTING.txt  analyst.cpp~  analyst.o	 main.cpp	   numerics.txt  var_manager.cpp  var_manager.hpp~
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because we search the ECE551PATH and find the ls.
+
+(2)Run ./ffosh.
+Then type /bin/ls
+You will see that it prints:
+
+Makefile     TESTING.txt~  analyst.hpp   commandShell.txt  main.cpp~     test3.cpp        var_manager.cpp~  var_manager.o
+README       analyst.cpp   analyst.hpp~  ffosh.            main.o        tests            var_manager.hpp
+TESTING.txt  analyst.cpp~  analyst.o     main.cpp          numerics.txt  var_manager.cpp  var_manager.hpp~
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because we search the specified directory and find the ls.
+
+(3)Run ./ffosh.
+Then type ./tests/step2/test2 a b 23
+You will see that it prints:
+
+4
+./tests/step2/test2
+a
+b
+23
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test2 firstly print argc, and after that it prints all the command line arguments.
+
+(4)Run ./ffosh.
+Then type ./tests/step2/test2      a   b      23
+You will see that it prints:
+
+4
+./tests/step2/test2
+a
+b
+23
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test2 firstly print argc, and after that it prints all the command line arguments.
+Means I correctly escape the spaces.
+
+(5)Run ./ffosh.
+Then type ./tests/step2/test2 "a   b"   c       "def   ghi"
+You will see that it prints:
+
+4
+./tests/step2/test2
+a   b
+c
+def   ghi
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test2 firstly print argc, and after that it prints all the command line arguments.
+Means I correctly realized the function of pairs of ".
+
+(6)Run ./ffosh.
+Then type ./tests/step2/test2 "\"hello world\""   "a\\b\\c d\\" \" \\ \\ \"sefsfe\"\\ \"
+You will see that it prints:
+
+8
+./tests/step2/test2
+"hello world"
+a\b\c d\
+"
+\
+\
+"sefsfe"\
+"
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test2 firstly print argc, and after that it prints all the command line arguments.
+Means I correctly realized the function of escaped quotation marks (\") and backslashes (\\).
+
+(7)Run ./ffosh.
+Then type ./tests/step2/test2 "\"hello world\""   "a\\b\\c d\\" \" \\ \\ \"sefsfe\"\\ \" "
+You will see that it prints:
+
+Error! There is an unclosed quotation mark at the end of the command line, please input another command
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test2 firstly print argc, and after that it prints all the command line arguments.
+Means I correctly tested the error to have an unclosed quotation mark at the end of the command line.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Step 3: Directories and variables
+
+(1)Run ./ffosh.
+It will print:
+
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type cd tests
+You will see that it prints:
+
+ffosh:/home/yz558/ece551/mp_miniproject/tests $
+
+Then type cd..
+It will print:
+
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+The type cd /bin
+It will print:
+
+ffosh:/bin $
+
+All of the above are correct because these means that I full realized the function of "cd" command.
+
+(2)Run ./ffosh.
+Then type: set var1 1234
+After that type: rev var1
+The type: set var2 666
+Then type: ./tests/step3/test3 --$var1-- $var1$var2 "$var1 $var1"
+It will print:
+
+4
+./tests/step3/test3
+--4321--
+4321666
+4321 4321
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the program test3 firstly print argc, and after that it prints all the command line arguments.
+The output means I correctly realized the function of set rev and access to variables.
+
+(3)Run ./ffosh.
+Then type: set var.1 1234
+It will print:
+
+Wrong format of var
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: set var
+It wil print:
+
+Wrong use of set, please input : set var value
+
+all of the above two outputs are correct because A variable name must be a combination of
+letters (case sensitive), underscores, and numbers. And the correct format for set is set var value.
+
+(4)Run ./ffosh.
+Then type: rev var1
+It will print:
+
+The var does not exist
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: export var1
+It will print:
+
+The var does not exist
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because we need to first set the value of the var then reverse or export it.
+
+(5)Run ./ffosh.
+Then type: env
+It will print:
+
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: set var1 1234
+After that type: export var1
+Then type: env
+It will print:
+
+var1=1234
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: set var2 /123/43.23,m
+After that type: export var2
+Then type: env
+It will print:
+
+var1=1234
+var2=/123/43.23,m
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: set var2 2
+And then type: export var2
+Then type: env
+It will print:
+
+var1=1234
+var2=2
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+which is correct because the above outputs means that I realized the function of export, and export
+can change the value of environment variables that already exists.
+
+(6)Run ./ffosh.
+Then type: set ECE551PATH /bin
+After that types: ls
+It will print:
+
+Makefile     TESTING.txt~  analyst.hpp	 commandShell.txt  main.cpp~	 test3.cpp	  var_manager.cpp~  var_manager.o
+README	     analyst.cpp   analyst.hpp~  ffosh.		   main.o	 tests		  var_manager.hpp
+TESTING.txt  analyst.cpp~  analyst.o	 main.cpp	   numerics.txt  var_manager.cpp  var_manager.hpp~
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type: env
+It will print:
+
+Command env not found
+Program failed with code 1
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+Then type:set ECE551PATH /usr/bin
+After that type: env
+It will print:
+
+Program was successful
+ffosh:/home/yz558/ece551/mp_miniproject $
+
+All of the above are correct becaues this means that if the user changes ECE551PATH, it should affect where your shell
+searches for programs, here I firstly changed my ECE551PATH to /bin, so I can only find ls instead of env. Then I change
+ECE551PATH to /usr/bin, now I can find env instead of ls.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Step 4: Pipes and redirection
+

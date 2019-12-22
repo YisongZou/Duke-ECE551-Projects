@@ -1,0 +1,3 @@
+/bin/ls
+./tests/step1/step1programfail_test
+./tests/step1/step1signal_test

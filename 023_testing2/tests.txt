@@ -1,0 +1,14 @@
+aabaa aaaab
+aaabb bbaaa
+a,abb aaabc
+,,,,, ,,,,,
+aaaa aaaaa
+a
+12345 12345
+1234 1234
+aaaaaa aaaaa
+baaaa abbbb
+1 2 3
+12345 1234
+12345 123456
+aaabb a,acc

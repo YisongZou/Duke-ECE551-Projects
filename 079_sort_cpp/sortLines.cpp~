@@ -1,0 +1,19 @@
+#include <cstdio>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <vector>
+void makesort() {
+  int main(int argc, chat ** argv) {
+    if (argc == 0) {
+      std::cout << "Wrong number of command line argument";
+      return EXIT_FAILURE;
+    }
+    if (argc == 1) {
+      makesort(std::cin);
+    }
+
+    if (argc > 1) {
+      for (int i = 1; i < argc; i++) {
+        std::ifstream if (argv[i]) {
+          if (!if) {
